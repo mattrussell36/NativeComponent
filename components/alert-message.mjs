@@ -1,20 +1,31 @@
 import Component from './component.mjs';
 
-export const AlertMessageTag = 'alert-message';
-
-
-export class AlertMessage extends Component {
-    constructor() {
-        const render = props => (`
-            <div>${props.text} - ${props.foo}</div>
-        `);
-
-        super(render);
+export default class AlertMessage extends Component {
+    static get tag() {
+        return 'alert-message';
     }
 
     // props
     static get observedAttributes() {
         return ['text', 'foo'];
+    }
+
+    constructor() {
+        const component = {
+            template: (props) => (`
+                <div class="alert-message">
+                    <p>${props.text} - ${props.foo}</p>
+                    <slot name="children" />
+                </div>
+            `),
+            styles: `
+                .alert-message {
+                    background: lightgreen;
+                }
+            `,
+        };
+
+        super(component);
     }
 
     connectedCallback() {
@@ -29,7 +40,7 @@ export class AlertMessage extends Component {
         if (oldValue === null) {
             return;
         }
-        
+
         this.renderShadowDOM({
             [name]: newValue,
         });

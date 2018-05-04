@@ -1,8 +1,9 @@
 class Component extends HTMLElement {
-    constructor(render) {
+    constructor(component) {
         super();
 
-        this.render = render;
+        this.template = component.template;
+        this.styles = component.styles;
 
         this.initialProps = this.createProps(this.attributes);
 
@@ -11,9 +12,17 @@ class Component extends HTMLElement {
     }
 
     renderShadowDOM(props) {
-        this.shadow.innerHTML = this.render(
+        const styles = `
+            <style>
+                ${this.styles}
+            </style>
+        `;
+
+        const html = this.template(
             Object.assign({}, this.initialProps, props)
         );
+
+        this.shadow.innerHTML = styles + html;
     }
 
     createProps(attributes) {

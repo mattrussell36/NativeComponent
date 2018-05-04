@@ -1,7 +1,7 @@
-import { AlertMessageTag, AlertMessage } from './alert-message.mjs';
+import AlertMessage from './alert-message.mjs';
 
 const components = {
-    [AlertMessageTag]: AlertMessage,
+    [AlertMessage.tag]: AlertMessage,
 };
 
 for (const component in components) {
