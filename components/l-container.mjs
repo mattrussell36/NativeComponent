@@ -1,27 +1,29 @@
 import Component from './component.mjs';
 
-export default class AlertMessage extends Component {
+export default class LContainer extends Component {
     static get tag() {
-        return 'alert-message';
+        return 'l-container';
     }
 
     // props
     static get observedAttributes() {
-        return ['text', 'foo'];
+        return ['classname'];
     }
 
     constructor() {
         const component = {
             template: (props) => (`
-                <div class="alert-message">
-                    <p>${props.text} - ${props.foo}</p>
+                <div class="l-container">
                     <slot name="children" />
                 </div>
             `),
             styles: `
-                .alert-message {
+                .l-container {
+                    max-width: 500px;
+                    display: block;
+                    margin: 20px auto;
+                    background-color: #90e5ee;
                     padding: 20px;
-                    background: lightgreen;
                 }
             `,
         };
